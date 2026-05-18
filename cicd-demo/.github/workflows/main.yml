@@ -1,4 +1,4 @@
-name: Beginner CI/CD
+name: CI Pipeline
 
 on:
   push:
@@ -10,21 +10,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Code
+      - name: Repository Checkout
         uses: actions/checkout@v4
 
-      - name: Install Node.js
+      - name: Node.js Install
         uses: actions/setup-node@v4
         with:
           node-version: 20
 
-      - name: Run Test
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run Tests
         run: npm test
-
-  deploy:
-    needs: test
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Fake Deploy
-        run: echo "Deploy Successful 🚀"
