@@ -1,0 +1,28 @@
+name: Docker CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  docker-build-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Build Docker Image
+        run: docker build -t cicd-app .
+
+      - name: Run Docker Container
+        run: docker run cicd-app
+
+  deploy:
+    needs: docker-build-test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Fake Deploy
+        run: echo "Deploy Successful 🚀"
